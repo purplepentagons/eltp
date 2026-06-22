@@ -1,0 +1,28 @@
+{
+	"schemaVersion": 1,
+	"id": "eltp",
+	"version": "${version}",
+	"name": "Even Less Tree Punching",
+	"description": "Minecraft progression mod",
+	"authors": [
+		"purplepentagons"
+	],
+	"contact": {
+		"homepage": "https://fabricmc.net/",
+		"sources": "https://github.com/FabricMC/fabric-example-mod"
+	},
+	"license": "CC0-1.0",
+	"icon": "assets/eltp/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"purplepentagons.eltp.EvenLessTreePunching"
+		]
+	},
+	"depends": {
+		"fabricloader": ">=0.19.3",
+		"minecraft": "~1.21.1",
+		"java": ">=21",
+		"fabric-api": "*"
+	}
+}

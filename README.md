@@ -1,6 +1,6 @@
 # Even Less Tree Punching
 
-A progression mod for Minecraft inspired by a variety of difficulty mods, primarily No Tree Punching.
+A progression mod for Minecraft (Fabric, 1.21.1) inspired by a variety of difficulty mods, primarily No Tree Punching.
 
 - Reworks Minecraft progression, removing the possibility of obtaining full iron armor on the first day
 - Gives purpose to lesser-used workstations
