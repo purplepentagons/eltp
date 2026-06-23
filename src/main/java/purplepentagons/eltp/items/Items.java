@@ -4,7 +4,10 @@ import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
+
 import purplepentagons.eltp.EvenLessTreePunching;
+
+import purplepentagons.eltp.items.tools.Hammers;
 
 public class Items {
     public static Item register(Item item, String id) {
@@ -16,6 +19,7 @@ public class Items {
     }
 
     public static void initialize() {
-        Chunks.initialize();
+        Materials.initialize();
+        Hammers.initialize();
     }
 }

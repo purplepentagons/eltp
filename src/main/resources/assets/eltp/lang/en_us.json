@@ -1,5 +1,12 @@
 {
     "item.eltp.iron_chunk": "Iron Chunk",
     "item.eltp.gold_chunk": "Gold Chunk",
-    "item.eltp.copper_chunk": "Copper Chunk"
+    "item.eltp.copper_chunk": "Copper Chunk",
+
+    "item.eltp.copper_hammer": "Copper Hammer",
+    "item.eltp.iron_hammer": "Iron Hammer",
+    "item.eltp.gold_hammer": "Gold Hammer",
+    "item.eltp.diamond_hammer": "Diamond Hammer",
+    "item.eltp.netherite_hammer": "Netherite Hammer"
+
 }
