@@ -1,12 +1,13 @@
-package purplepentagons.eltp;
+package com.purplepentagons.eltp;
 
 import net.fabricmc.api.ModInitializer;
 
 import net.minecraft.util.Identifier;
-import purplepentagons.eltp.items.Items;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.purplepentagons.eltp.items.ModItems;
 
 public class EvenLessTreePunching implements ModInitializer {
 	public static final String MOD_ID = "eltp";
@@ -15,7 +16,7 @@ public class EvenLessTreePunching implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
-		Items.initialize();
+		ModItems.initialize();
 		LOGGER.info("Even Less Tree Punching initialized");
 	}
 

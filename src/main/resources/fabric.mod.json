@@ -16,7 +16,7 @@
 	"environment": "*",
 	"entrypoints": {
 		"main": [
-			"purplepentagons.eltp.EvenLessTreePunching"
+			"com.purplepentagons.eltp.EvenLessTreePunching"
 		]
 	},
 	"depends": {

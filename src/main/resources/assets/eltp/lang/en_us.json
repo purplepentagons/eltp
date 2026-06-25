@@ -3,10 +3,34 @@
     "item.eltp.gold_chunk": "Gold Chunk",
     "item.eltp.copper_chunk": "Copper Chunk",
 
+    "item.eltp.flint_shard": "Flint Shard",
+    "item.eltp.plant_fiber": "Plant Fiber",
+    "item.eltp.plant_string": "Plant String",
+
+    "item.eltp.flint_axe": "Flint Axe",
+    "item.eltp.flint_pickaxe": "Flint Pickaxe",
+    "item.eltp.flint_shovel": "Flint Shovel",
+    "item.eltp.flint_hoe": "Flint Hoe",
+    "item.eltp.flint_club": "Flint Club",
+    
+    "item.eltp.flint_knife": "Flint Knife",
+    "item.eltp.copper_knife": "Copper Knife",
+    "item.eltp.iron_knife": "Iron Knife",
+    "item.eltp.golden_knife": "Golden Knife",
+    "item.eltp.diamond_knife": "Diamond Knife",
+    "item.eltp.netherite_knife": "Netherite Knife",
+
     "item.eltp.copper_hammer": "Copper Hammer",
     "item.eltp.iron_hammer": "Iron Hammer",
-    "item.eltp.gold_hammer": "Gold Hammer",
+    "item.eltp.golden_hammer": "Golden Hammer",
     "item.eltp.diamond_hammer": "Diamond Hammer",
-    "item.eltp.netherite_hammer": "Netherite Hammer"
+    "item.eltp.netherite_hammer": "Netherite Hammer",
 
+    "item.eltp.copper_saw": "Copper Saw",
+    "item.eltp.iron_saw": "Iron Saw",
+    "item.eltp.golden_saw": "Golden Saw",
+    "item.eltp.diamond_saw": "Diamond Saw",
+    "item.eltp.netherite_saw": "Netherite Saw",
+
+    "creativeTab.eltp": "Even Less Tree Punching"
 }

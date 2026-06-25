@@ -1,6 +1,6 @@
 {
   "parent": "item/handheld_mace",
   "textures": {
-    "layer0": "eltp:item/diamond_hammer"
+    "layer0": "eltp:item/golden_hammer"
   }
 }
