@@ -1,0 +1,15 @@
+{
+    "required": true,
+    "minVersion": "0.8",
+    "package": "com.purplepentagons.eltp.mixin",
+    "compatibilityLevel": "JAVA_21",
+    "mixins": [
+        "RecipeManagerMixin"
+    ],
+    "injectors": {
+        "defaultRequire": 1
+    },
+    "overwrites": {
+        "requireAnnotations": true
+    }
+}
