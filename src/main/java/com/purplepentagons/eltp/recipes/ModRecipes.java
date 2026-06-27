@@ -7,7 +7,7 @@ import com.purplepentagons.eltp.EvenLessTreePunching;
 import net.minecraft.util.Identifier;
 
 public class ModRecipes {
-    public static JsonObject TEST_RECIPE = RecipeUtil.shapedRecipe(
+    public static JsonObject COPPER_HAMMER = RecipeUtil.shapedRecipe(
         Lists.newArrayList(
             'X',
             '#'
@@ -16,10 +16,10 @@ public class ModRecipes {
         Lists.newArrayList("item", "item"),
         Lists.newArrayList(
             "XXX",
-            "XX ",
+            "XXX",
             " # "
         ),
-        EvenLessTreePunching.id("iron_hammer"),
+        EvenLessTreePunching.id("copper_hammer"),
         1
     );
 

@@ -4,7 +4,8 @@
     "package": "com.purplepentagons.eltp.mixin",
     "compatibilityLevel": "JAVA_21",
     "mixins": [
-        "RecipeManagerMixin"
+        "RecipeManagerMixin",
+        "PlayerEntityMixin"
     ],
     "injectors": {
         "defaultRequire": 1

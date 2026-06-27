@@ -16,6 +16,9 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
 public class ModItems {
+    public static final Item COPPER_HAMMER = register(new HammerItem(ModToolMaterials.COPPER, new Item.Settings().attributeModifiers(HammerItem.createAttributeModifiers(
+        ModToolMaterials.COPPER, HammerItem.HAMMER_ATTACK_DAMAGE, HammerItem.HAMMER_ATTACK_SPEED
+    ))), "copper_hammer");
     public static final Item IRON_HAMMER = register(new HammerItem(ToolMaterials.IRON, new Item.Settings().attributeModifiers(HammerItem.createAttributeModifiers(
         ToolMaterials.IRON, HammerItem.HAMMER_ATTACK_DAMAGE, HammerItem.HAMMER_ATTACK_SPEED
     ))), "iron_hammer");
@@ -29,6 +32,9 @@ public class ModItems {
         ToolMaterials.GOLD, HammerItem.HAMMER_ATTACK_DAMAGE, HammerItem.HAMMER_ATTACK_SPEED
     ))), "golden_hammer");
 
+    public static final Item COPPER_KNIFE = register(new KnifeItem(ModToolMaterials.COPPER, new Item.Settings().attributeModifiers(KnifeItem.createAttributeModifiers(
+        ModToolMaterials.COPPER, KnifeItem.KNIFE_ATTACK_DAMAGE, KnifeItem.KNIFE_ATTACK_SPEED
+    ))), "copper_knife");
     public static final Item IRON_KNIFE = register(new KnifeItem(ToolMaterials.IRON, new Item.Settings().attributeModifiers(KnifeItem.createAttributeModifiers(
         ToolMaterials.IRON, KnifeItem.KNIFE_ATTACK_DAMAGE, KnifeItem.KNIFE_ATTACK_SPEED
     ))), "iron_knife");

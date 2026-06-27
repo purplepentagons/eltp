@@ -1,6 +1,7 @@
 package com.purplepentagons.eltp.items;
 
 import com.google.common.base.Suppliers;
+import com.purplepentagons.eltp.utils.ModCompatibility;
 
 import java.util.function.Supplier;
 
@@ -12,7 +13,8 @@ import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.registry.tag.TagKey;
 
 public enum ModToolMaterials implements ToolMaterial {
-   FLINT(BlockTags.INCORRECT_FOR_WOODEN_TOOL, 59, 1.5F, 0.0F, 5, () -> Ingredient.ofItems(ModItems.FLINT_SHARD, Items.FLINT));
+   FLINT(getFlintInverseTag(), 59, 1.5F, 0.0F, 5, () -> Ingredient.ofItems(ModItems.FLINT_SHARD, Items.FLINT)),
+   COPPER(BlockTags.INCORRECT_FOR_STONE_TOOL, 190, 5.0F, 1.0F, 13, () -> Ingredient.ofItems(Items.COPPER_INGOT));
 
    private final TagKey<Block> inverseTag;
    private final int itemDurability;
@@ -30,7 +32,15 @@ public enum ModToolMaterials implements ToolMaterial {
       this.repairIngredient = Suppliers.memoize(repairIngredient::get);
    }
 
-    public int getDurability() {
+   private static TagKey<Block> getFlintInverseTag() {
+      if(ModCompatibility.COPPERAGEBACKPORT_LOADED) {
+         return BlockTags.INCORRECT_FOR_WOODEN_TOOL;
+      } else {
+         return BlockTags.INCORRECT_FOR_STONE_TOOL;
+      }
+   }
+
+   public int getDurability() {
       return this.itemDurability;
    }
 

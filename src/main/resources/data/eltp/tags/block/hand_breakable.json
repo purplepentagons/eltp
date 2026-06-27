@@ -1,0 +1,22 @@
+{
+    "values": [
+        "minecraft:gravel",
+        "minecraft:suspicious_gravel",
+        "#minecraft:dirt",
+        "#minecraft:sand",
+        "minecraft:soul_sand",
+        "minecraft:soul_soil",
+        "#minecraft:leaves",
+        "#minecraft:flowers",
+        "#minecraft:saplings",
+        "#minecraft:replaceable_by_trees",
+
+        "minecraft:wither_skeleton_skull",
+        "minecraft:skeleton_skull",
+        "minecraft:player_head",
+        "minecraft:zombie_head",
+        "minecraft:creeper_head",
+        "minecraft:dragon_head",
+        "minecraft:piglin_head"
+    ]
+}
