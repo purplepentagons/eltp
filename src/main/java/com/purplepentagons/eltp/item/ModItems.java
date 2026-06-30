@@ -1,12 +1,15 @@
-package com.purplepentagons.eltp.items;
+package com.purplepentagons.eltp.item;
 
 import com.purplepentagons.eltp.EvenLessTreePunching;
 
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
+import net.minecraft.item.AxeItem;
+import net.minecraft.item.HoeItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.PickaxeItem;
 import net.minecraft.item.ShovelItem;
 import net.minecraft.item.ToolMaterials;
 import net.minecraft.registry.Registries;
@@ -52,12 +55,18 @@ public class ModItems {
     ))), "flint_knife");
 
     public static final Item FLINT_SHOVEL = register(new ShovelItem(ModToolMaterials.FLINT, new Item.Settings().attributeModifiers(ShovelItem.createAttributeModifiers(ModToolMaterials.FLINT, 1.5F, -3.0F))), "flint_shovel");
+    public static final Item FLINT_PICKAXE = register(new PickaxeItem(ModToolMaterials.FLINT, new Item.Settings().attributeModifiers(PickaxeItem.createAttributeModifiers(ModToolMaterials.FLINT, 1.0F, -2.8F))), "flint_pickaxe");
+    public static final Item FLINT_HOE = register(new HoeItem(ModToolMaterials.FLINT, new Item.Settings().attributeModifiers(PickaxeItem.createAttributeModifiers(ModToolMaterials.FLINT, 0.0F, -3.0F))), "flint_hoe");
+    public static final Item FLINT_AXE = register(new AxeItem(ModToolMaterials.FLINT, new Item.Settings().attributeModifiers(AxeItem.createAttributeModifiers(ModToolMaterials.FLINT, 4.0F, -3.2F))), "flint_axe");
 
     public static final Item IRON_CHUNK = register(new Item(new Item.Settings()), "iron_chunk");
     public static final Item GOLD_CHUNK = register(new Item(new Item.Settings()), "gold_chunk");
     public static final Item COPPER_CHUNK = register(new Item(new Item.Settings()), "copper_chunk");
 
     public static final Item FLINT_SHARD = register(new Item(new Item.Settings()), "flint_shard");
+    public static final Item PLANT_STRING = register(new Item(new Item.Settings()), "plant_string");
+    public static final Item PLANT_FIBER = register(new Item(new Item.Settings()), "plant_fiber");
+
 
     public static final RegistryKey<ItemGroup> ELTP_ITEM_GROUP_KEY = RegistryKey.of(Registries.ITEM_GROUP.getKey(), EvenLessTreePunching.id("item_group"));
     public static final ItemGroup ELTP_ITEM_GROUP = FabricItemGroup.builder()

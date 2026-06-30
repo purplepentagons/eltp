@@ -5,7 +5,8 @@
     "compatibilityLevel": "JAVA_21",
     "mixins": [
         "RecipeManagerMixin",
-        "PlayerEntityMixin"
+        "PlayerEntityMixin",
+        "ServerPlayerEntityMixin"
     ],
     "injectors": {
         "defaultRequire": 1

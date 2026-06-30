@@ -1,0 +1,18 @@
+{
+	"type": "minecraft:crafting_shapeless",
+	"ingredients": [
+		{
+			"item": "eltp:plant_fiber"
+		},
+		{
+			"item": "eltp:plant_fiber"
+		},
+		{
+			"item": "eltp:plant_fiber"
+		}
+	],
+	"result": {
+		"id": "eltp:plant_string",
+		"count": 1
+	}
+}

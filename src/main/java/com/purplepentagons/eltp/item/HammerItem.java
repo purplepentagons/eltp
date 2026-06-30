@@ -1,4 +1,4 @@
-package com.purplepentagons.eltp.items;
+package com.purplepentagons.eltp.item;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.component.type.AttributeModifierSlot;
@@ -80,12 +80,12 @@ public class HammerItem extends ToolItem {
     public float getBonusAttackDamage(Entity target, float baseAttackDamage, DamageSource damageSource) {
         Entity source = damageSource.getSource();
         if (source instanceof LivingEntity livingEntity) {
-            if (!shouldDealAdditionalDamage(livingEntity)) {
-                return 0.0F;
-            } else {
+            if (shouldDealAdditionalDamage(livingEntity)) {
                 float fallDistance = livingEntity.fallDistance;
 
-                return (float)(Math.sqrt((double)fallDistance/2 - 0.75) * 5);
+                return (float)(Math.min(1000, 1.0f + Math.pow(fallDistance/2 - 0.75f, 2.0f/3.0f) * 3));
+            } else {
+                return 0.0F;
             }
         } else {
             return 0.0F;

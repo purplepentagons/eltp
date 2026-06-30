@@ -6,9 +6,10 @@ import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.purplepentagons.eltp.effect.ModEffects;
 import com.purplepentagons.eltp.event.ModEvents;
-import com.purplepentagons.eltp.items.ModItems;
-import com.purplepentagons.eltp.recipes.ModRecipes;
+import com.purplepentagons.eltp.item.ModItems;
+import com.purplepentagons.eltp.recipe.ModRecipes;
 
 public class EvenLessTreePunching implements ModInitializer {
 	public static final String MOD_ID = "eltp";
@@ -20,6 +21,7 @@ public class EvenLessTreePunching implements ModInitializer {
 		ModItems.initialize();
 		ModRecipes.initialize();
 		ModEvents.initialize();
+		ModEffects.initialize();
 		LOGGER.info("Even Less Tree Punching initialized");
 	}
 

@@ -7,14 +7,17 @@
     },
     "X": {
       "item": "eltp:flint_shard"
+    },
+    "S": {
+      "tag": "c:strings"
     }
   },
   "pattern": [
-    "X",
-    "#"
+    "SX",
+    "# "
   ],
   "result": {
     "count": 1,
-    "id": "eltp:flint_knife"
+    "id": "eltp:flint_axe"
   }
 }

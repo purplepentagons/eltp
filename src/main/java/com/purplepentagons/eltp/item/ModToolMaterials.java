@@ -1,7 +1,7 @@
-package com.purplepentagons.eltp.items;
+package com.purplepentagons.eltp.item;
 
 import com.google.common.base.Suppliers;
-import com.purplepentagons.eltp.utils.ModCompatibility;
+import com.purplepentagons.eltp.util.ModCompatibility;
 
 import java.util.function.Supplier;
 
@@ -13,7 +13,7 @@ import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.registry.tag.TagKey;
 
 public enum ModToolMaterials implements ToolMaterial {
-   FLINT(getFlintInverseTag(), 59, 1.5F, 0.0F, 5, () -> Ingredient.ofItems(ModItems.FLINT_SHARD, Items.FLINT)),
+   FLINT(getFlintInverseTag(), 59, 2.0F, 0.0F, 5, () -> Ingredient.ofItems(ModItems.FLINT_SHARD, Items.FLINT)),
    COPPER(BlockTags.INCORRECT_FOR_STONE_TOOL, 190, 5.0F, 1.0F, 13, () -> Ingredient.ofItems(Items.COPPER_INGOT));
 
    private final TagKey<Block> inverseTag;

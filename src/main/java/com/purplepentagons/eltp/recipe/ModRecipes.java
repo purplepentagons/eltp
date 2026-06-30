@@ -1,4 +1,4 @@
-package com.purplepentagons.eltp.recipes;
+package com.purplepentagons.eltp.recipe;
 
 import com.google.common.collect.Lists;
 import com.google.gson.JsonObject;

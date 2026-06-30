@@ -1,4 +1,4 @@
-package com.purplepentagons.eltp.utils;
+package com.purplepentagons.eltp.util;
 
 import net.fabricmc.loader.api.FabricLoader;
 

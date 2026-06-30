@@ -9,8 +9,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import com.google.gson.JsonElement;
 import com.purplepentagons.eltp.EvenLessTreePunching;
-import com.purplepentagons.eltp.recipes.ModRecipes;
-import com.purplepentagons.eltp.utils.ModCompatibility;
+import com.purplepentagons.eltp.recipe.ModRecipes;
+import com.purplepentagons.eltp.util.ModCompatibility;
 
 import net.minecraft.recipe.RecipeManager;
 import net.minecraft.resource.ResourceManager;

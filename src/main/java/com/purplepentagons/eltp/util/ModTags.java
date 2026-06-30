@@ -1,4 +1,4 @@
-package com.purplepentagons.eltp.utils;
+package com.purplepentagons.eltp.util;
 
 import com.purplepentagons.eltp.EvenLessTreePunching;
 
@@ -9,7 +9,7 @@ import net.minecraft.registry.tag.TagKey;
 
 public class ModTags {
     public static class Blocks {
-        public static final TagKey<Block> HAND_BREAKABLE = createTag("hand_breakable");
+        public static final TagKey<Block> FIST_BREAKABLE = createTag("fist_breakable");
 
         private static TagKey<Block> createTag(String name) {
             return TagKey.of(Registries.BLOCK.getKey(), EvenLessTreePunching.id(name));

@@ -32,5 +32,11 @@
     "item.eltp.diamond_saw": "Diamond Saw",
     "item.eltp.netherite_saw": "Netherite Saw",
 
+    "effect.eltp.bleeding": "Bleeding",
+    "effect.eltp.marked_for_death": "Marked for Death",
+    "effect.eltp.hyperviolent": "Hyperviolent",
+
+    "death.attack.bleeding": "%1$s bled out",
+
     "creativeTab.eltp": "Even Less Tree Punching"
 }
