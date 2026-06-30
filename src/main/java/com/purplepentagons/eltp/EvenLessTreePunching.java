@@ -6,7 +6,7 @@ import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.purplepentagons.eltp.effect.ModEffects;
+import com.purplepentagons.eltp.effect.ModStatusEffects;
 import com.purplepentagons.eltp.event.ModEvents;
 import com.purplepentagons.eltp.item.ModItems;
 import com.purplepentagons.eltp.recipe.ModRecipes;
@@ -21,7 +21,7 @@ public class EvenLessTreePunching implements ModInitializer {
 		ModItems.initialize();
 		ModRecipes.initialize();
 		ModEvents.initialize();
-		ModEffects.initialize();
+		ModStatusEffects.initialize();
 		LOGGER.info("Even Less Tree Punching initialized");
 	}
 

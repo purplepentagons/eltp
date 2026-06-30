@@ -8,7 +8,7 @@ import net.minecraft.registry.Registry;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.Identifier;
 
-public class ModEffects {
+public class ModStatusEffects {
     public static final RegistryEntry<StatusEffect> BLEEDING = register(new BleedingEffect(), "bleeding");
     public static final RegistryEntry<StatusEffect> HYPERVIOLENT = register(new HyperviolentEffect(), "hyperviolent");
     public static final RegistryEntry<StatusEffect> MARKED_FOR_DEATH = register(new MarkedForDeathEffect(), "marked_for_death");
