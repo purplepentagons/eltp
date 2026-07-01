@@ -79,7 +79,7 @@ public class KnifeDamageEvent {
                             int markedForDeathLevel = target.getStatusEffect(ModStatusEffects.MARKED_FOR_DEATH).getAmplifier();
                             StatusEffectInstance bleedingEffectInstance = new StatusEffectInstance(
                                 ModStatusEffects.BLEEDING,
-                                (markedForDeathLevel+1)*20*3,
+                                (markedForDeathLevel)*20*3 + 20*5,
                                 markedForDeathLevel,
                                 false,
                                 true,
@@ -139,6 +139,6 @@ public class KnifeDamageEvent {
     }
 
     private static int determineEffectAmplifier(int knifeViolenceScore) {
-        return Math.clamp((int)(Math.floor((float)(knifeViolenceScore)/300 - 1)), 0, 4);
+        return Math.clamp((int)(Math.floor((float)(knifeViolenceScore)/500 - 1)), 0, 4);
     }
 }

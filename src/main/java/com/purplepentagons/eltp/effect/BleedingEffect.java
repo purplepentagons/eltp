@@ -21,7 +21,8 @@ public class BleedingEffect extends StatusEffect {
             ParticleTypes.BLOCK,
             Blocks.NETHER_WART_BLOCK.getDefaultState()
         ));
-        this.addAttributeModifier(EntityAttributes.GENERIC_MOVEMENT_SPEED, EvenLessTreePunching.id("bleeding_movement_speed"), -0.3f, Operation.ADD_MULTIPLIED_BASE);
+        this.addAttributeModifier(EntityAttributes.GENERIC_MOVEMENT_SPEED, EvenLessTreePunching.id("bleeding_movement_speed"), -0.25f, Operation.ADD_MULTIPLIED_BASE);
+        this.addAttributeModifier(EntityAttributes.GENERIC_JUMP_STRENGTH, EvenLessTreePunching.id("bleeding_jump_strength"), -0.25f, Operation.ADD_MULTIPLIED_BASE);
     }
 
     @Override
