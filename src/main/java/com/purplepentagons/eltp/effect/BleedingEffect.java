@@ -2,6 +2,7 @@ package com.purplepentagons.eltp.effect;
 
 import com.purplepentagons.eltp.EvenLessTreePunching;
 import com.purplepentagons.eltp.entity.damage.ModDamageTypes;
+import com.purplepentagons.eltp.util.EventUtils;
 
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.LivingEntity;
@@ -21,13 +22,21 @@ public class BleedingEffect extends StatusEffect {
             ParticleTypes.BLOCK,
             Blocks.NETHER_WART_BLOCK.getDefaultState()
         ));
-        this.addAttributeModifier(EntityAttributes.GENERIC_MOVEMENT_SPEED, EvenLessTreePunching.id("bleeding_movement_speed"), -0.25f, Operation.ADD_MULTIPLIED_BASE);
-        this.addAttributeModifier(EntityAttributes.GENERIC_JUMP_STRENGTH, EvenLessTreePunching.id("bleeding_jump_strength"), -0.25f, Operation.ADD_MULTIPLIED_BASE);
+        this.addAttributeModifier(EntityAttributes.GENERIC_MOVEMENT_SPEED, EvenLessTreePunching.id("bleeding_movement_speed"), -0.2f, Operation.ADD_MULTIPLIED_BASE);
+        this.addAttributeModifier(EntityAttributes.GENERIC_JUMP_STRENGTH, EvenLessTreePunching.id("bleeding_jump_strength"), -0.2f, Operation.ADD_MULTIPLIED_BASE);
+        this.addAttributeModifier(EntityAttributes.PLAYER_BLOCK_BREAK_SPEED, EvenLessTreePunching.id("bleeding_block_break_speed"), -0.15f, Operation.ADD_MULTIPLIED_BASE);
     }
 
     @Override
     public boolean canApplyUpdateEffect(int duration, int amplifier) {
-        return duration % 40 == 0;
+        if (duration % 40 == 0) {
+            if (EventUtils.random.nextBoolean()) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override

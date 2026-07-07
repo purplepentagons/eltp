@@ -5,5 +5,6 @@ public class ModEvents {
         FlintKnapEvent.initialize();
         KnifeDamageEvent.initialize();
         BleedOnHitEvent.initialize();
+        InjectRecipesEvent.initialize();
     }
 }

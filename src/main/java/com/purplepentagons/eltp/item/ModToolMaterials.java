@@ -1,7 +1,7 @@
 package com.purplepentagons.eltp.item;
 
 import com.google.common.base.Suppliers;
-import com.purplepentagons.eltp.util.ModCompatibility;
+import com.purplepentagons.eltp.util.compatibility.CopperAgeBackport;
 
 import java.util.function.Supplier;
 
@@ -33,7 +33,7 @@ public enum ModToolMaterials implements ToolMaterial {
    }
 
    private static TagKey<Block> getFlintInverseTag() {
-      if(ModCompatibility.COPPERAGEBACKPORT_LOADED) {
+      if(CopperAgeBackport.LOADED) {
          return BlockTags.INCORRECT_FOR_WOODEN_TOOL;
       } else {
          return BlockTags.INCORRECT_FOR_STONE_TOOL;

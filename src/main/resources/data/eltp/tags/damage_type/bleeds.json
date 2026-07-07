@@ -3,7 +3,6 @@
         "minecraft:fall",
         "minecraft:fly_into_wall",
         "minecraft:arrow",
-        "minecraft;mob_attack",
         "minecraft:mob_projectile",
         "minecraft:mob_attack_no_aggro",
         "minecraft:stalagmite",

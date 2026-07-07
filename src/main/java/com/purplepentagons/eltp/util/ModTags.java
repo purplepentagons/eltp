@@ -22,6 +22,8 @@ public class ModTags {
         public static final TagKey<Item> KNIVES = createTag("knives");
         public static final TagKey<Item> SAWS = createTag("saws");
 
+        public static final TagKey<Item> CRAFTING_TOOLS = createTag("crafting_tools");
+
         private static TagKey<Item> createTag(String name) {
             return TagKey.of(RegistryKeys.ITEM, EvenLessTreePunching.id(name));
         }

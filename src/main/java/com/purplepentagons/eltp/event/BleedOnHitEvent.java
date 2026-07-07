@@ -23,7 +23,7 @@ public class BleedOnHitEvent {
                     entity instanceof ServerPlayerEntity player &&
                     player.getWorld() instanceof ServerWorld serverWorld &&
                     damageTaken >= 5 &&
-                    // source.isIn(ModTags.Damage.BLEEDS) &&
+                    source.isIn(ModTags.Damage.BLEEDS) &&
                     !blocked
                 ) {
                     applyBleedingEffect(player, damageTaken);
@@ -62,7 +62,7 @@ public class BleedOnHitEvent {
     private static void applyBleedingEffect(ServerPlayerEntity player, float damageTaken) {
         StatusEffectInstance bleedingEffectInstance = new StatusEffectInstance(
             ModStatusEffects.BLEEDING,
-            25*(int)(damageTaken)/2,
+            3*20*(int)(damageTaken),
             0,
             false,
             true,
