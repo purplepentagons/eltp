@@ -100,6 +100,10 @@ public class InjectRecipesEvent {
         }
 
         for (SimpleRecipeInjection simpleRecipeInjection : ModRecipeInjections.SIMPLE_RECIPE_INJECTIONS) {
+            if (!simpleRecipeInjection.canInject()) {
+                continue;
+            }
+            
             Map<Identifier, JsonElement> jsonRecipes = simpleRecipeInjection.getRecipes();
 
             for (Map.Entry<Identifier, JsonElement> recipeMapEntry : jsonRecipes.entrySet()) {

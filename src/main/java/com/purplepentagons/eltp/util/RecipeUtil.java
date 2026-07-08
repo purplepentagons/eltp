@@ -1,4 +1,4 @@
-package com.purplepentagons.eltp.recipe;
+package com.purplepentagons.eltp.util;
 
 import java.util.ArrayList;
 
@@ -56,7 +56,7 @@ public class RecipeUtil {
         return json;
     }
 
-    private static JsonObject toolTransformSingleItemRecipe(Identifier firstKey, Identifier secondKey, ArrayList<String> pattern, Identifier resultKey, int count) {
+    public static JsonObject toolTransformSingleItemRecipe(Identifier firstKey, Identifier secondKey, ArrayList<String> pattern, Identifier resultKey, int count) {
         return shapedRecipe(
             Lists.newArrayList(
                 'F',
@@ -68,19 +68,6 @@ public class RecipeUtil {
             resultKey,
             count,
             "eltp:shaped_tool_damaging"
-        );
-    }
-
-    public static JsonObject logPlanksRecipe(Identifier logItem, Identifier planksKey) {
-        return toolTransformSingleItemRecipe(
-            Identifier.of("minecraft:axes"), 
-            logItem,
-            Lists.newArrayList(
-                "F ",
-                "S "
-            ),
-            planksKey,
-            2
         );
     }
 }

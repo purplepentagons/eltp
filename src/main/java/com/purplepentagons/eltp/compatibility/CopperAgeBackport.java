@@ -1,12 +1,12 @@
-package com.purplepentagons.eltp.util.compatibility;
+package com.purplepentagons.eltp.compatibility;
 
 import java.util.Map;
 
 import com.google.common.collect.Lists;
 import com.google.gson.JsonObject;
 import com.purplepentagons.eltp.EvenLessTreePunching;
-import com.purplepentagons.eltp.recipe.RecipeUtil;
 import com.purplepentagons.eltp.recipe.injection.SimpleRecipeInjection;
+import com.purplepentagons.eltp.util.RecipeUtil;
 
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.util.Identifier;

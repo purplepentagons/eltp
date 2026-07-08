@@ -23,8 +23,8 @@ public class BleedingEffect extends StatusEffect {
             Blocks.NETHER_WART_BLOCK.getDefaultState()
         ));
         this.addAttributeModifier(EntityAttributes.GENERIC_MOVEMENT_SPEED, EvenLessTreePunching.id("bleeding_movement_speed"), -0.2f, Operation.ADD_MULTIPLIED_BASE);
-        this.addAttributeModifier(EntityAttributes.GENERIC_JUMP_STRENGTH, EvenLessTreePunching.id("bleeding_jump_strength"), -0.2f, Operation.ADD_MULTIPLIED_BASE);
-        this.addAttributeModifier(EntityAttributes.PLAYER_BLOCK_BREAK_SPEED, EvenLessTreePunching.id("bleeding_block_break_speed"), -0.15f, Operation.ADD_MULTIPLIED_BASE);
+        this.addAttributeModifier(EntityAttributes.GENERIC_JUMP_STRENGTH, EvenLessTreePunching.id("bleeding_jump_strength"), -0.05f, Operation.ADD_MULTIPLIED_BASE);
+        this.addAttributeModifier(EntityAttributes.PLAYER_BLOCK_BREAK_SPEED, EvenLessTreePunching.id("bleeding_block_break_speed"), -0.2f, Operation.ADD_MULTIPLIED_BASE);
     }
 
     @Override

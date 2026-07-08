@@ -1,7 +1,7 @@
 package com.purplepentagons.eltp.item;
 
 import com.google.common.base.Suppliers;
-import com.purplepentagons.eltp.util.compatibility.CopperAgeBackport;
+import com.purplepentagons.eltp.compatibility.CopperAgeBackport;
 
 import java.util.function.Supplier;
 

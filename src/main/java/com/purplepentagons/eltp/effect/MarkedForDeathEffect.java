@@ -6,7 +6,7 @@ import net.minecraft.entity.effect.StatusEffectCategory;
 public class MarkedForDeathEffect extends StatusEffect {
 
     protected MarkedForDeathEffect() {
-        // marked for death is used to apply bleeding, etc
+        // marked for death is used to apply bleeding, hyperviolent
         super(StatusEffectCategory.HARMFUL, 0xFF0000);
     }
     
