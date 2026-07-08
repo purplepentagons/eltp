@@ -4,11 +4,28 @@ import java.util.ArrayList;
 
 import com.google.common.collect.Lists;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
+import com.purplepentagons.eltp.EvenLessTreePunching;
 
+import net.minecraft.recipe.Recipe;
+import net.minecraft.recipe.RecipeEntry;
+import net.minecraft.registry.RegistryOps;
 import net.minecraft.util.Identifier;
 
 public class RecipeUtil {
+    public static RecipeEntry<Recipe<?>> parseRecipeEntry(Identifier identifier, JsonElement json, RegistryOps<JsonElement> registryOps) {
+        RecipeEntry<Recipe<?>> recipeEntry = null;
+        try {
+            Recipe<?> recipe = Recipe.CODEC.parse(registryOps, json).getOrThrow(JsonParseException::new);
+            recipeEntry = new RecipeEntry<Recipe<?>>(identifier, recipe);
+        } catch(IllegalArgumentException | JsonParseException runtimeException) {
+            EvenLessTreePunching.LOGGER.error("Parsing error loading recipe {}", identifier, runtimeException);
+        }
+        return recipeEntry;
+    }
+
     public static JsonObject shapedRecipe(ArrayList<Character> keys, ArrayList<Identifier> items, ArrayList<String> type, ArrayList<String> pattern, Identifier output, int count, String recipeType) {
         JsonObject json = new JsonObject();
         json.addProperty("type", recipeType);

@@ -19,9 +19,9 @@ public class EvenLessTreePunching implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		ModItems.initialize();
-		ModRecipes.initialize();
 		ModEvents.initialize();
 		ModStatusEffects.initialize();
+		ModRecipes.initialize();
 		LOGGER.info("Even Less Tree Punching initialized");
 	}
 

@@ -2,26 +2,24 @@ package com.purplepentagons.eltp.event;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Map;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
 import com.mojang.serialization.JsonOps;
 import com.purplepentagons.eltp.EvenLessTreePunching;
-import com.purplepentagons.eltp.recipe.ModRecipes;
-import com.purplepentagons.eltp.recipe.RecipeUtil;
-import com.purplepentagons.eltp.recipe.ShapedToolDamagingRecipe;
-import com.purplepentagons.eltp.util.compatibility.CopperAgeBackport;
+import com.purplepentagons.eltp.recipe.injection.ModRecipeInjections;
+import com.purplepentagons.eltp.recipe.injection.RecipeEntryInjection;
+import com.purplepentagons.eltp.recipe.injection.SimpleRecipeInjection;
+import com.purplepentagons.eltp.recipe.injection.TransformRecipeInjection;
 
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
-import net.minecraft.item.ItemStack;
 import net.minecraft.network.packet.s2c.play.SynchronizeRecipesS2CPacket;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.recipe.RecipeManager;
-import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryOps;
 import net.minecraft.registry.RegistryWrapper.WrapperLookup;
-import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.resource.LifecycledResourceManager;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -32,8 +30,15 @@ public class InjectRecipesEvent {
     private static WrapperLookup registryLookup;
     private static RegistryOps<JsonElement> registryOps;
 
+    public static void initialize() {
+        Identifier eventIdentifier = EvenLessTreePunching.id("inject_recipes");
+
+        ServerLifecycleEvents.SERVER_STARTED.register(eventIdentifier, InjectRecipesEvent::injectRecipes);
+        ServerLifecycleEvents.END_DATA_PACK_RELOAD.register(eventIdentifier, InjectRecipesEvent::injectRecipesAndSync);
+    }
+
     // if something goes wrong it will error and stay null
-    protected static RecipeEntry<Recipe<?>> parseRecipeEntry(Identifier identifier, JsonElement json) {
+    protected static RecipeEntry<Recipe<?>> parseRecipeEntry(Identifier identifier, JsonElement json, RegistryOps<JsonElement> registryOps) {
         RecipeEntry<Recipe<?>> recipeEntry = null;
         try {
             Recipe<?> recipe = Recipe.CODEC.parse(registryOps, json).getOrThrow(JsonParseException::new);
@@ -44,12 +49,6 @@ public class InjectRecipesEvent {
         return recipeEntry;
     }
 
-    public static void initialize() {
-        Identifier eventIdentifier = EvenLessTreePunching.id("inject_recipes");
-
-        ServerLifecycleEvents.SERVER_STARTED.register(eventIdentifier, InjectRecipesEvent::injectRecipes);
-        ServerLifecycleEvents.END_DATA_PACK_RELOAD.register(eventIdentifier, InjectRecipesEvent::injectRecipesAndSync);
-    }
 
     private static void injectRecipesAndSync(MinecraftServer server, LifecycledResourceManager lifecycledResourceManager, boolean success) {
         injectRecipes(server);
@@ -75,7 +74,7 @@ public class InjectRecipesEvent {
         recipes.addAll(recipeEntryInjection.additionalRecipeEntries());
         recipes.removeAll(recipeEntryInjection.removedRecipeEntries());
 
-        EvenLessTreePunching.LOGGER.info("Added {} extra recipes. Removed {} recipes.", recipeEntryInjection.additionalRecipeEntries().size(), recipeEntryInjection.removedRecipeEntries.size());
+        EvenLessTreePunching.LOGGER.info("Added {} extra recipes. Removed {} recipes.", recipeEntryInjection.additionalRecipeEntries().size(), recipeEntryInjection.removedRecipeEntries().size());
 
         recipeManager.setRecipes(recipes);
     }
@@ -89,49 +88,29 @@ public class InjectRecipesEvent {
         
         for (RecipeEntry<?> recipeEntry : recipes) {
             // eventually move all of these to a seperate object; i don't know what the general structure is yet
-            addPlanksRecipeEntries(recipeEntryInjection, recipeEntry);
-        }
-        
-        if (CopperAgeBackport.LOADED) {
-            RecipeEntry<?> copperHammerRecipeEntry = parseRecipeEntry(EvenLessTreePunching.id("copper_hammer"), ModRecipes.COPPER_HAMMER);
+            // addPlanksRecipeEntries(recipeEntryInjection, recipeEntry, registryOps);
 
-            recipeEntryInjection.additionalRecipeEntries.add(copperHammerRecipeEntry);
+            for(TransformRecipeInjection transformRecipeInjection : ModRecipeInjections.TRANSFORM_RECIPE_INJECTIONS) {
+                boolean canTransform = transformRecipeInjection.canTransform(recipeEntry.value(), registryLookup);
+
+                if (canTransform) {
+                    transformRecipeInjection.transformRecipe(recipeEntry, registryLookup, registryOps, recipeEntryInjection);
+                }
+            }
+        }
+
+        for (SimpleRecipeInjection simpleRecipeInjection : ModRecipeInjections.SIMPLE_RECIPE_INJECTIONS) {
+            Map<Identifier, JsonElement> jsonRecipes = simpleRecipeInjection.getRecipes();
+
+            for (Map.Entry<Identifier, JsonElement> recipeMapEntry : jsonRecipes.entrySet()) {
+                Identifier identifier = recipeMapEntry.getKey();
+                JsonElement jsonRecipe = recipeMapEntry.getValue();
+
+                RecipeEntry<?> recipeEntry = parseRecipeEntry(identifier, jsonRecipe, registryOps);
+                recipeEntryInjection.additionalRecipeEntries().add(recipeEntry);
+            }
         }
 
         return recipeEntryInjection;
     }
-
-    private static void addPlanksRecipeEntries(RecipeEntryInjection recipeInjection, RecipeEntry<?> recipeEntry) {
-        Recipe<?> recipe = recipeEntry.value();
-
-        boolean validRecipe = 
-        recipe.getResult(registryLookup).isIn(ItemTags.PLANKS) &&
-        !(recipe instanceof ShapedToolDamagingRecipe) && 
-        recipe.getIngredients().size() == 1;
-        
-        if(!validRecipe) {
-            return;
-        }
-        
-        Collection<RecipeEntry<?>> additionalPlanksRecipeEntries = new ArrayList<RecipeEntry<?>>();
-
-        Identifier planksIdentifier = Registries.ITEM.getId(recipe.getResult(registryLookup).getItem());
-        String planksName = planksIdentifier.getPath();
-
-        for (ItemStack logStack : recipe.getIngredients().getFirst().getMatchingStacks()) {
-            Identifier logIdentifier = Registries.ITEM.getId(logStack.getItem());
-            String logName = logIdentifier.getPath();
-
-            Identifier recipeIdentifier = EvenLessTreePunching.id("%s_from_%s_with_axe".formatted(planksName, logName));
-            JsonElement recipeJsonElement = RecipeUtil.logPlanksRecipe(logIdentifier, planksIdentifier);
-            RecipeEntry<?> planksRecipeEntry = parseRecipeEntry(recipeIdentifier, recipeJsonElement);
-            additionalPlanksRecipeEntries.add(planksRecipeEntry);
-        }
-
-
-        recipeInjection.additionalRecipeEntries.addAll(additionalPlanksRecipeEntries);
-        recipeInjection.removedRecipeEntries.add(recipeEntry);
-    }
-
-    private record RecipeEntryInjection(Collection<RecipeEntry<?>> removedRecipeEntries, Collection<RecipeEntry<?>> additionalRecipeEntries) {}
 }
