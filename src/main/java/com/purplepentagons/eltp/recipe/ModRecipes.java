@@ -20,6 +20,18 @@ public class ModRecipes {
         new ShapedToolDamagingRecipeSerializer()
     );
 
+    public static final RecipeType<ShapelessToolDamagingRecipe> SHAPELESS_TOOL_DAMAGE_RECIPE_TYPE = Registry.register(
+        Registries.RECIPE_TYPE, 
+        EvenLessTreePunching.id("shapeless_tool_damaging"),
+        new RecipeType<ShapelessToolDamagingRecipe>() {}
+    );
+
+    public static final ShapelessToolDamagingRecipeSerializer SHAPELESS_TOOL_DAMAGE_RECIPE_SERIALIZER = Registry.register(
+        Registries.RECIPE_SERIALIZER, 
+        EvenLessTreePunching.id("shapeless_tool_damaging"), 
+        new ShapelessToolDamagingRecipeSerializer()
+    );
+
     public static void initialize() {
         ModRecipeInjections.initialize();
     }

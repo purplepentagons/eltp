@@ -1,8 +1,8 @@
 package com.purplepentagons.eltp.util;
 
 import java.util.ArrayList;
+import java.util.Map;
 
-import com.google.common.collect.Lists;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -26,24 +26,51 @@ public class RecipeUtil {
         return recipeEntry;
     }
 
-    public static JsonObject shapedRecipe(ArrayList<Character> keys, ArrayList<Identifier> items, ArrayList<String> type, ArrayList<String> pattern, Identifier output, int count, String recipeType) {
+    public record UnparsedIngredient(Identifier identifier, String type) {
+        public static UnparsedIngredient of(String identifierString, String type) {
+            return new UnparsedIngredient(Identifier.of(identifierString), type);
+        } 
+
+        public static UnparsedIngredient of(Identifier identifier, String type) {
+            return new UnparsedIngredient(identifier, type);
+        }
+
+        public static UnparsedIngredient item(Identifier identifier) {
+            return new UnparsedIngredient(identifier, "item");
+        }
+
+        public static UnparsedIngredient item(String identifierString) {
+            return new UnparsedIngredient(Identifier.of(identifierString), "item");
+        }
+
+        public static UnparsedIngredient tag(Identifier identifier) {
+            return new UnparsedIngredient(identifier, "tag");
+        }
+
+        public static UnparsedIngredient tag(String identifierString) {
+            return new UnparsedIngredient(Identifier.of(identifierString), "tag");
+        }
+    }
+
+    public static JsonObject shapedRecipe(Map<Character, UnparsedIngredient> ingredients, ArrayList<String> pattern, Identifier output, int count, String recipeType) {
         JsonObject json = new JsonObject();
         json.addProperty("type", recipeType);
 
-        JsonArray jsonArray = new JsonArray();
-        for (int i = 0; i < pattern.size(); ++i) {
-            jsonArray.add(pattern.get(i));
-        }
-        json.add("pattern", jsonArray);
-
-        JsonObject individualKey;
         JsonObject keyList = new JsonObject();
-
-        for (int i = 0; i < keys.size(); ++i) {
-            individualKey = new JsonObject();
-            individualKey.addProperty(type.get(i), items.get(i).toString());
-            keyList.add(keys.get(i) + "", individualKey);
+        JsonObject ingredientKey;
+        for (Map.Entry<Character, UnparsedIngredient> ingredient : ingredients.entrySet()) {
+            ingredientKey = new JsonObject();
+            UnparsedIngredient unparsedIngredient = ingredient.getValue();
+            Character ingredientKeyCharacter = ingredient.getKey();
+            ingredientKey.addProperty(unparsedIngredient.type(), unparsedIngredient.identifier().toString());
+            keyList.add(ingredientKeyCharacter + "", ingredientKey);
         }
+        
+        JsonArray patternArray = new JsonArray();
+        for (String patternRow : pattern) {
+            patternArray.add(patternRow);
+        }
+        json.add("pattern", patternArray);
 
         json.add("key", keyList);
 
@@ -56,18 +83,26 @@ public class RecipeUtil {
         return json;
     }
 
-    public static JsonObject toolTransformSingleItemRecipe(Identifier firstKey, Identifier secondKey, ArrayList<String> pattern, Identifier resultKey, int count) {
-        return shapedRecipe(
-            Lists.newArrayList(
-                'F',
-                'S'
-            ),
-            Lists.newArrayList(firstKey, secondKey),
-            Lists.newArrayList("tag", "item"),
-            pattern,
-            resultKey,
-            count,
-            "eltp:shaped_tool_damaging"
-        );
+    public static JsonObject shapelessRecipe(ArrayList<UnparsedIngredient> ingredients, ArrayList<String> type, Identifier output, int count, String recipeType) {
+        JsonObject json = new JsonObject();
+
+        json.addProperty("type", recipeType);
+
+        JsonArray ingredientsJson = new JsonArray();
+        JsonObject ingredientKey;
+
+        for(int i = 0; i < ingredients.size(); ++i) {
+            ingredientKey = new JsonObject();
+            ingredientKey.addProperty(type.get(i), ingredients.get(i).toString());
+            ingredientsJson.add(ingredientKey);
+        }
+
+        JsonObject result = new JsonObject();
+        result.addProperty("id", output.toString());
+        result.addProperty("count", count);
+
+        json.add("result", result);
+
+        return json;
     }
 }

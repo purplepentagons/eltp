@@ -24,8 +24,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class HammerItem extends ToolItem {
-    public static final float HAMMER_ATTACK_DAMAGE = 4.0f;
-    public static final float HAMMER_ATTACK_SPEED = -3.2f;
+    public static final float BASE_ATTACK_DAMAGE = 4.0f;
+    public static final float BASE_ATTACK_SPEED = -3.2f;
 
     public HammerItem(ToolMaterial material, Item.Settings settings) {
         super(material, settings);
