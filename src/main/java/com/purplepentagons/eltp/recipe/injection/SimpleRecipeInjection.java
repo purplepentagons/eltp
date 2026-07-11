@@ -1,5 +1,6 @@
 package com.purplepentagons.eltp.recipe.injection;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -8,6 +9,17 @@ import com.google.gson.JsonElement;
 import net.minecraft.util.Identifier;
 
 public class SimpleRecipeInjection {
+    public static ArrayList<SimpleRecipeInjection> simpleRecipeInjections = new ArrayList<SimpleRecipeInjection>();
+
+    public static SimpleRecipeInjection inject(SimpleRecipeInjection injection) {
+        simpleRecipeInjections.add(injection);
+        return injection;
+    }
+
+    public static ArrayList<SimpleRecipeInjection> getInjections() {
+        return simpleRecipeInjections;
+    }
+
     protected Map<Identifier, JsonElement> jsonRecipes;
     protected boolean canInject;
 

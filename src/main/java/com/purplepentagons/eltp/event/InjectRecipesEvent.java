@@ -8,7 +8,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
 import com.mojang.serialization.JsonOps;
 import com.purplepentagons.eltp.EvenLessTreePunching;
-import com.purplepentagons.eltp.recipe.injection.ModRecipeInjections;
 import com.purplepentagons.eltp.recipe.injection.RecipeEntryInjection;
 import com.purplepentagons.eltp.recipe.injection.SimpleRecipeInjection;
 import com.purplepentagons.eltp.recipe.injection.TransformRecipeInjection;
@@ -90,7 +89,7 @@ public class InjectRecipesEvent {
             // eventually move all of these to a seperate object; i don't know what the general structure is yet
             // addPlanksRecipeEntries(recipeEntryInjection, recipeEntry, registryOps);
 
-            for(TransformRecipeInjection transformRecipeInjection : ModRecipeInjections.TRANSFORM_RECIPE_INJECTIONS) {
+            for(TransformRecipeInjection transformRecipeInjection : TransformRecipeInjection.getInjections()) {
                 boolean canTransform = transformRecipeInjection.canTransform(recipeEntry.value(), registryLookup);
 
                 if (canTransform) {
@@ -99,7 +98,7 @@ public class InjectRecipesEvent {
             }
         }
 
-        for (SimpleRecipeInjection simpleRecipeInjection : ModRecipeInjections.SIMPLE_RECIPE_INJECTIONS) {
+        for (SimpleRecipeInjection simpleRecipeInjection : SimpleRecipeInjection.getInjections()) {
             if (!simpleRecipeInjection.canInject()) {
                 continue;
             }

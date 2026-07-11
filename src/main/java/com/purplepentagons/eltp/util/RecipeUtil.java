@@ -83,19 +83,21 @@ public class RecipeUtil {
         return json;
     }
 
-    public static JsonObject shapelessRecipe(ArrayList<UnparsedIngredient> ingredients, ArrayList<String> type, Identifier output, int count, String recipeType) {
+    public static JsonObject shapelessRecipe(ArrayList<UnparsedIngredient> ingredients, Identifier output, int count, String recipeType) {
         JsonObject json = new JsonObject();
 
         json.addProperty("type", recipeType);
 
         JsonArray ingredientsJson = new JsonArray();
-        JsonObject ingredientKey;
+        JsonObject ingredientObject;
 
-        for(int i = 0; i < ingredients.size(); ++i) {
-            ingredientKey = new JsonObject();
-            ingredientKey.addProperty(type.get(i), ingredients.get(i).toString());
-            ingredientsJson.add(ingredientKey);
+        for(UnparsedIngredient ingredient : ingredients) {
+            ingredientObject = new JsonObject();
+            ingredientObject.addProperty(ingredient.type(), ingredient.identifier().toString());
+            ingredientsJson.add(ingredientObject);
         }
+
+        json.add("ingredients", ingredientsJson);
 
         JsonObject result = new JsonObject();
         result.addProperty("id", output.toString());
