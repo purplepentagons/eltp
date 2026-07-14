@@ -1,8 +1,6 @@
 {
     "replace": false,
     "values": [
-        "#eltp:hammers",
-        "#eltp:knives",
         "#eltp:saws"
     ]
 }

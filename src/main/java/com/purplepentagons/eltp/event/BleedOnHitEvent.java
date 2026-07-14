@@ -62,7 +62,7 @@ public class BleedOnHitEvent {
     private static void applyBleedingEffect(ServerPlayerEntity player, float damageTaken) {
         StatusEffectInstance bleedingEffectInstance = new StatusEffectInstance(
             ModStatusEffects.BLEEDING,
-            3*20*(int)(damageTaken),
+            6*20*(int)(damageTaken),
             0,
             false,
             true,

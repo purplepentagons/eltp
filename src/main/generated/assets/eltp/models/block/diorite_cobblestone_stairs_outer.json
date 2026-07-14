@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/outer_stairs",
+  "textures": {
+    "bottom": "eltp:block/diorite_cobblestone",
+    "side": "eltp:block/diorite_cobblestone",
+    "top": "eltp:block/diorite_cobblestone"
+  }
+}

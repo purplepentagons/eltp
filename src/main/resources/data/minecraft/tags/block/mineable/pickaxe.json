@@ -1,0 +1,8 @@
+{
+    "replace": false,
+    "values": [
+        "eltp:diorite_cobblestone",
+        "eltp:andesite_cobblestone",
+        "eltp:granite_cobblestone"
+    ]
+}

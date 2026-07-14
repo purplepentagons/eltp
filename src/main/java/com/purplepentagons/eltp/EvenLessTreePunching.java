@@ -6,6 +6,7 @@ import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.purplepentagons.eltp.block.ModBlocks;
 import com.purplepentagons.eltp.effect.ModStatusEffects;
 import com.purplepentagons.eltp.event.ModEvents;
 import com.purplepentagons.eltp.item.ModItems;
@@ -18,6 +19,7 @@ public class EvenLessTreePunching implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
+		ModBlocks.initialize();
 		ModItems.initialize();
 		ModEvents.initialize();
 		ModStatusEffects.initialize();

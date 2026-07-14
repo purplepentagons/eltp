@@ -1,10 +1,13 @@
 package com.purplepentagons.eltp.item;
 
 import com.purplepentagons.eltp.EvenLessTreePunching;
+import com.purplepentagons.eltp.block.ModBlocks;
 
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
+import net.minecraft.block.Block;
 import net.minecraft.item.AxeItem;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.HoeItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
@@ -85,14 +88,30 @@ public class ModItems {
     public static final Item PLANT_STRING = register(new Item(new Item.Settings()), "plant_string");
     public static final Item PLANT_FIBER = register(new Item(new Item.Settings()), "plant_fiber");
 
+    public static final BlockItem ANDESITE_COBBLESTONE = registerBlockItem(ModBlocks.ANDESITE_COBBLESTONE);
+    public static final BlockItem DIORITE_COBBLESTONE = registerBlockItem(ModBlocks.DIORITE_COBBLESTONE);
+    public static final BlockItem GRANITE_COBBLESTONE = registerBlockItem(ModBlocks.GRANITE_COBBLESTONE);
 
-    public static final RegistryKey<ItemGroup> ELTP_ITEM_GROUP_KEY = RegistryKey.of(Registries.ITEM_GROUP.getKey(), EvenLessTreePunching.id("item_group"));
-    public static final ItemGroup ELTP_ITEM_GROUP = FabricItemGroup.builder()
+    public static final BlockItem ANDESITE_COBBLESTONE_STAIRS = registerBlockItem(ModBlocks.ANDESITE_COBBLESTONE_STAIRS);
+    public static final BlockItem DIORITE_COBBLESTONE_STAIRS = registerBlockItem(ModBlocks.DIORITE_COBBLESTONE_STAIRS);
+    public static final BlockItem GRANITE_COBBLESTONE_STAIRS = registerBlockItem(ModBlocks.GRANITE_COBBLESTONE_STAIRS);
+
+    public static final BlockItem ANDESITE_COBBLESTONE_WALL = registerBlockItem(ModBlocks.ANDESITE_COBBLESTONE_WALL);
+    public static final BlockItem DIORITE_COBBLESTONE_WALL = registerBlockItem(ModBlocks.DIORITE_COBBLESTONE_WALL);
+    public static final BlockItem GRANITE_COBBLESTONE_WALL = registerBlockItem(ModBlocks.GRANITE_COBBLESTONE_WALL);
+
+    public static final BlockItem ANDESITE_COBBLESTONE_SLAB = registerBlockItem(ModBlocks.ANDESITE_COBBLESTONE_SLAB);
+    public static final BlockItem DIORITE_COBBLESTONE_SLAB = registerBlockItem(ModBlocks.DIORITE_COBBLESTONE_SLAB);
+    public static final BlockItem GRANITE_COBBLESTONE_SLAB = registerBlockItem(ModBlocks.GRANITE_COBBLESTONE_SLAB);
+    
+
+    private static final RegistryKey<ItemGroup> ELTP_ITEM_GROUP_KEY = RegistryKey.of(Registries.ITEM_GROUP.getKey(), EvenLessTreePunching.id("item_group"));
+    private static final ItemGroup ELTP_ITEM_GROUP = FabricItemGroup.builder()
         .icon(() -> new ItemStack(IRON_HAMMER))
         .displayName(Text.translatable("creativeTab.eltp"))
         .build();
 
-    public static Item register(Item item, String id) {
+    private static <T extends Item> T register(T item, String id) {
         Identifier itemID = EvenLessTreePunching.id(id);
 
         Item registeredItem = Registry.register(Registries.ITEM, itemID, item);
@@ -101,7 +120,13 @@ public class ModItems {
             itemGroup.add(registeredItem);
         });
 
-        return registeredItem;
+        return item;
+    }
+
+    private static BlockItem registerBlockItem(Block block) {
+        String id = Registries.BLOCK.getId(block).getPath();
+
+        return register(new BlockItem(block, new Item.Settings()), id);
     }
 
     public static void initialize() {

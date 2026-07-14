@@ -1,6 +1,0 @@
-{
-  "parent": "item/handheld_mace",
-  "textures": {
-    "layer0": "eltp:item/copper_hammer"
-  }
-}
