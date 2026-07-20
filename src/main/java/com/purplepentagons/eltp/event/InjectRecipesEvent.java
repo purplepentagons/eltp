@@ -5,16 +5,16 @@ import java.util.Collection;
 import java.util.Map;
 
 import com.google.gson.JsonElement;
-import com.google.gson.JsonParseException;
 import com.mojang.serialization.JsonOps;
 import com.purplepentagons.eltp.EvenLessTreePunching;
 import com.purplepentagons.eltp.recipe.injection.RecipeEntryInjection;
 import com.purplepentagons.eltp.recipe.injection.SimpleRecipeInjection;
+import com.purplepentagons.eltp.recipe.injection.ToggleRecipeInjection;
 import com.purplepentagons.eltp.recipe.injection.TransformRecipeInjection;
+import com.purplepentagons.eltp.util.RecipeUtil;
 
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.minecraft.network.packet.s2c.play.SynchronizeRecipesS2CPacket;
-import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.recipe.RecipeManager;
 import net.minecraft.registry.RegistryOps;
@@ -35,19 +35,6 @@ public class InjectRecipesEvent {
         ServerLifecycleEvents.SERVER_STARTED.register(eventIdentifier, InjectRecipesEvent::injectRecipes);
         ServerLifecycleEvents.END_DATA_PACK_RELOAD.register(eventIdentifier, InjectRecipesEvent::injectRecipesAndSync);
     }
-
-    // if something goes wrong it will error and stay null
-    protected static RecipeEntry<Recipe<?>> parseRecipeEntry(Identifier identifier, JsonElement json, RegistryOps<JsonElement> registryOps) {
-        RecipeEntry<Recipe<?>> recipeEntry = null;
-        try {
-            Recipe<?> recipe = Recipe.CODEC.parse(registryOps, json).getOrThrow(JsonParseException::new);
-            recipeEntry = new RecipeEntry<Recipe<?>>(identifier, recipe);
-        } catch(IllegalArgumentException | JsonParseException runtimeException) {
-            EvenLessTreePunching.LOGGER.error("Parsing error loading recipe {}", identifier, runtimeException);
-        }
-        return recipeEntry;
-    }
-
 
     private static void injectRecipesAndSync(MinecraftServer server, LifecycledResourceManager lifecycledResourceManager, boolean success) {
         injectRecipes(server);
@@ -83,19 +70,9 @@ public class InjectRecipesEvent {
             new ArrayList<RecipeEntry<?>>(), 
             new ArrayList<RecipeEntry<?>>()
         );
-
         
         for (RecipeEntry<?> recipeEntry : recipes) {
-            // eventually move all of these to a seperate object; i don't know what the general structure is yet
-            // addPlanksRecipeEntries(recipeEntryInjection, recipeEntry, registryOps);
-
-            for(TransformRecipeInjection transformRecipeInjection : TransformRecipeInjection.getInjections()) {
-                boolean canTransform = transformRecipeInjection.canTransform(recipeEntry.value(), registryLookup);
-
-                if (canTransform) {
-                    transformRecipeInjection.transformRecipe(recipeEntry, registryLookup, registryOps, recipeEntryInjection);
-                }
-            }
+            transformSingleRecipe(recipeEntry, recipeEntryInjection);
         }
 
         for (SimpleRecipeInjection simpleRecipeInjection : SimpleRecipeInjection.getInjections()) {
@@ -109,11 +86,36 @@ public class InjectRecipesEvent {
                 Identifier identifier = recipeMapEntry.getKey();
                 JsonElement jsonRecipe = recipeMapEntry.getValue();
 
-                RecipeEntry<?> recipeEntry = parseRecipeEntry(identifier, jsonRecipe, registryOps);
+                RecipeEntry<?> recipeEntry = RecipeUtil.parseRecipeEntry(identifier, jsonRecipe, registryOps);
                 recipeEntryInjection.additionalRecipeEntries().add(recipeEntry);
             }
         }
 
+
         return recipeEntryInjection;
+    }
+
+    private static void transformSingleRecipe(RecipeEntry<?> recipeEntry, RecipeEntryInjection recipeEntryInjection) {
+        // toggles come before transforms because why transform recipes that aren't even supposed to exist
+        // just remove the original recipe in the transform
+        for (ToggleRecipeInjection toggleRecipeInjection : ToggleRecipeInjection.getInjections()) {
+            for (Identifier recipeIdentifier : toggleRecipeInjection.getIdentifiers()) {
+                if (
+                    (recipeEntry.id().toString().equals(recipeIdentifier.toString())) &&
+                    toggleRecipeInjection.willToggleOff()
+                ) {
+                    recipeEntryInjection.removedRecipeEntries().add(recipeEntry);
+                    return;
+                }
+            }
+        }
+
+        for(TransformRecipeInjection transformRecipeInjection : TransformRecipeInjection.getInjections()) {
+            boolean canTransform = transformRecipeInjection.canTransform(recipeEntry.value(), registryLookup);
+
+            if (canTransform) {
+                transformRecipeInjection.transformRecipe(recipeEntry, registryLookup, registryOps, recipeEntryInjection);
+            }
+        }
     }
 }

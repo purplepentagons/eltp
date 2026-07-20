@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.purplepentagons.eltp.block.ModBlocks;
+import com.purplepentagons.eltp.compatibility.ModCompatibility;
 import com.purplepentagons.eltp.effect.ModStatusEffects;
 import com.purplepentagons.eltp.event.ModEvents;
 import com.purplepentagons.eltp.item.ModItems;
@@ -24,6 +25,7 @@ public class EvenLessTreePunching implements ModInitializer {
 		ModEvents.initialize();
 		ModStatusEffects.initialize();
 		ModRecipes.initialize();
+		ModCompatibility.initialize();
 		LOGGER.info("Even Less Tree Punching initialized");
 	}
 

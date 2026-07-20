@@ -10,7 +10,7 @@ import net.minecraft.registry.RegistryOps;
 import net.minecraft.registry.RegistryWrapper.WrapperLookup;
 
 public class TransformRecipeInjection {
-    public static ArrayList<TransformRecipeInjection> transformRecipeInjections = new ArrayList<TransformRecipeInjection>();
+    private static ArrayList<TransformRecipeInjection> transformRecipeInjections = new ArrayList<TransformRecipeInjection>();
 
     public static TransformRecipeInjection inject(TransformRecipeInjection injection) {
         transformRecipeInjections.add(injection);

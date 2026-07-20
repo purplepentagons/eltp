@@ -1,0 +1,15 @@
+{
+	"type": "eltp:shapeless_tool_damaging",
+	"ingredients": [
+		{
+			"tag": "eltp:knives"
+		},
+        {
+            "tag": "minecraft:tall_flowers"
+        }
+	],
+	"result": {
+		"count": 2,
+		"id": "eltp:plant_fiber"
+	}
+}

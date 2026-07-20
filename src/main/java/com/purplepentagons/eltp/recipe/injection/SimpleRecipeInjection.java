@@ -9,7 +9,7 @@ import com.google.gson.JsonElement;
 import net.minecraft.util.Identifier;
 
 public class SimpleRecipeInjection {
-    public static ArrayList<SimpleRecipeInjection> simpleRecipeInjections = new ArrayList<SimpleRecipeInjection>();
+    private static ArrayList<SimpleRecipeInjection> simpleRecipeInjections = new ArrayList<SimpleRecipeInjection>();
 
     public static SimpleRecipeInjection inject(SimpleRecipeInjection injection) {
         simpleRecipeInjections.add(injection);

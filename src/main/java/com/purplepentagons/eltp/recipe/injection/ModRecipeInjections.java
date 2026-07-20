@@ -4,7 +4,6 @@ import java.util.Map;
 
 import com.google.common.collect.Lists;
 import com.purplepentagons.eltp.EvenLessTreePunching;
-import com.purplepentagons.eltp.compatibility.CopperAgeBackport;
 import com.purplepentagons.eltp.util.RecipeUtil;
 import com.purplepentagons.eltp.util.RecipeUtil.UnparsedIngredient;
 
@@ -12,22 +11,10 @@ import net.minecraft.util.Identifier;
 
 public class ModRecipeInjections {
 
-    public static SimpleRecipeInjection PLANT_FIBER_FLOWER_INJECTION = new SimpleRecipeInjection(Map.of(
-        EvenLessTreePunching.id("plant_fiber_from_small_flowers"), RecipeUtil.shapelessRecipe(
-            Lists.newArrayList(
-                UnparsedIngredient.tag("eltp:knives"),
-                UnparsedIngredient.tag("minecraft:small_flowers")   
-            ), 
-            EvenLessTreePunching.id("plant_fiber"), 1,
-            "eltp:shapeless_tool_damaging"),
-        EvenLessTreePunching.id("plant_fiber_from_large_flowers"), RecipeUtil.shapelessRecipe(
-            Lists.newArrayList(
-                UnparsedIngredient.tag("eltp:knives"),
-                UnparsedIngredient.tag("minecraft:tall_flowers")   
-            ),
-            EvenLessTreePunching.id("plant_fiber"), 2,
-            "eltp:shapeless_tool_damaging")
-    ));
+    public static ToggleRecipeInjection PLANT_FIBER_FLOWER_INJECTION = new ToggleRecipeInjection(Lists.newArrayList(
+        EvenLessTreePunching.id("plant_fiber_from_tall_flowers"),
+        EvenLessTreePunching.id("plant_fiber_from_small_flowers")
+    ), false);
 
     public static SimpleRecipeInjection STICKS_FROM_LOGS_INJECTION = new SimpleRecipeInjection(Map.of(
         EvenLessTreePunching.id("sticks_from_logs_with_axe"), RecipeUtil.shapedRecipe(
@@ -57,10 +44,10 @@ public class ModRecipeInjections {
     ));
 
     public static void initialize() {
-        SimpleRecipeInjection.inject(CopperAgeBackport.Recipes.RECIPE_INJECTION);
-        SimpleRecipeInjection.inject(PLANT_FIBER_FLOWER_INJECTION);
         SimpleRecipeInjection.inject(STICKS_FROM_LOGS_INJECTION);
+
+        ToggleRecipeInjection.inject(PLANT_FIBER_FLOWER_INJECTION);
 
         TransformRecipeInjection.inject(new PlanksRecipeInjection());
     }
-}
+} 
